@@ -5,7 +5,7 @@ import json
 app = Flask(__name__)
 
 # Load all quotes into memory once
-with open('quotes.jsonl', 'r') as f:
+with open('quotes.jsonl', 'r', encoding='utf-8') as f:
     quotes = [json.loads(line.strip()) for line in f]
 
 # with open('category.txt', 'r+', encoding='utf-8') as file:
@@ -21,21 +21,31 @@ with open('quotes.jsonl', 'r') as f:
 #     file.truncate()  # Remove any leftover content
 #----------------------------------------------------
 
-@app.route('/quotes/random', methods=['GET'])
-def get_random_quote_by_tag():
-    tag_query = request.args.get('tags', '').lower()
+@app.route('/quotes/random')
+def random_quote():
+    tag_filter = request.args.get('tags', '').lower()
+    max_length = request.args.get('maxlength', type=int)
 
-    if tag_query:
+    filtered_quotes = quotes
+
+    # Filter by tag if present
+    if tag_filter:
         filtered_quotes = [
-            q for q in quotes
-            if any(tag_query in tag.lower() for tag in q.get('tags', []))
+            q for q in filtered_quotes
+            if any(tag_filter in tag.lower() for tag in q.get('tags', []))
         ]
-        if filtered_quotes:
-            return jsonify(random.choice(filtered_quotes))
-        else:
-            return jsonify({'error': 'No quote found for the given tag'}), 404
 
-    return jsonify(random.choice(quotes))
+    # Filter by max quote length
+    if max_length is not None:
+        filtered_quotes = [
+            q for q in filtered_quotes
+            if len(q['quote']) <= max_length
+        ]
+
+    if not filtered_quotes:
+        return jsonify({"error": "No matching quote found"}), 404
+
+    return jsonify(random.choice(filtered_quotes))
 
 @app.route('/api/search', methods=['GET'])
 def search_quotes():
