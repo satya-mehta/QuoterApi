@@ -40,7 +40,7 @@ def random_quotes():
             quote_tags = [t.strip().lower() for t in tag_string.split(';')]
             return any(tag in quote_tags for tag in requested_tags)
 
-    filtered_quotes = [q for q in filtered_quotes if has_any_requested_tag(q)]
+        filtered_quotes = [q for q in filtered_quotes if has_any_requested_tag(q)]
 
 
     # Filter by max quote length
