@@ -21,18 +21,21 @@ with open('quotes.jsonl', 'r', encoding='utf-8') as f:
 #     file.truncate()  # Remove any leftover content
 #----------------------------------------------------
 
+
 @app.route('/quotes/random')
-def random_quote():
-    tag_filter = request.args.get('tags', '').lower()
+def random_quotes():
+    tags_param = request.args.get('tags', '').lower()
     max_length = request.args.get('maxlength', type=int)
+    limit = request.args.get('limit', default=1, type=int)
 
     filtered_quotes = quotes
 
-    # Filter by tag if present
-    if tag_filter:
+    # Handle multiple tags (comma-separated)
+    if tags_param:
+        requested_tags = [tag.strip() for tag in tags_param.split(',') if tag.strip()]
         filtered_quotes = [
             q for q in filtered_quotes
-            if any(tag_filter in tag.lower() for tag in q.get('tags', []))
+            if any(tag.lower() in [t.lower() for t in q.get('tags', [])] for tag in requested_tags)
         ]
 
     # Filter by max quote length
@@ -42,10 +45,13 @@ def random_quote():
             if len(q['quote']) <= max_length
         ]
 
+    # Return error if no matches
     if not filtered_quotes:
-        return jsonify({"error": "No matching quote found"}), 404
+        return jsonify({"error": "No matching quotes found"}), 404
 
-    return jsonify(random.choice(filtered_quotes))
+    # Return up to `limit` random quotes
+    result = random.sample(filtered_quotes, min(limit, len(filtered_quotes)))
+    return jsonify(result)
 
 @app.route('/api/search', methods=['GET'])
 def search_quotes():
