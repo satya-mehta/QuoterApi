@@ -35,15 +35,13 @@ def random_quotes():
         requested_tags = [tag.strip().lower() for tag in tags_param.split(',') if tag.strip()]
     
         def has_any_requested_tag(q):
-            quote_tags = q.get('tags', [])
-            # If tags are accidentally stored as a string, fix that
-            if isinstance(quote_tags, str):
-                quote_tags = [t.strip().lower() for t in quote_tags.split(',')]
-            else:
-                quote_tags = [t.strip().lower() for t in quote_tags]
+            quote_tags_raw = q.get('tags', [])
+            tag_string = quote_tags_raw[0] if quote_tags_raw else ''
+            quote_tags = [t.strip().lower() for t in tag_string.split(';')]
             return any(tag in quote_tags for tag in requested_tags)
 
-        filtered_quotes = [q for q in filtered_quotes if has_any_requested_tag(q)]
+    filtered_quotes = [q for q in filtered_quotes if has_any_requested_tag(q)]
+
 
     # Filter by max quote length
     if max_length is not None:
