@@ -5,7 +5,7 @@ import json
 app = Flask(__name__)
 
 # Load all quotes into memory once
-with open('quotes.jsonl', 'r', encoding='utf-8') as f:
+with open('quotes.jsonl', 'r') as f:
     quotes = [json.loads(line.strip()) for line in f]
 
 # with open('category.txt', 'r+', encoding='utf-8') as file:
