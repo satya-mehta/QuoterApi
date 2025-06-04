@@ -4,22 +4,9 @@ import json
 
 app = Flask(__name__)
 
-# Load all quotes into memory once
+# Load all quotes into memory once under the variable quotes
 with open('quotes.jsonl', 'r', encoding='utf-8') as f:
     quotes = [json.loads(line.strip()) for line in f]
-
-# with open('category.txt', 'r+', encoding='utf-8') as file:
-#     content = file.read().split(', ')  # Read and split tags
-#     existing_tags = set(content)  # Store existing tags in a set
-    
-#     for q in quotes:
-#         for tags in q['tags']:
-#             existing_tags.add(tags)  # Ensure uniqueness
-
-#     file.seek(0)  # Move cursor to the beginning
-#     file.write(', '.join(existing_tags))  # Write updated tags
-#     file.truncate()  # Remove any leftover content
-#----------------------------------------------------
 
 
 @app.route('/quotes/random')
@@ -30,7 +17,7 @@ def random_quotes():
 
     filtered_quotes = quotes
 
-    # Handle multiple tags (comma-separated)
+    # Handle multiple comma-separated tags 
     if tags_param:
         requested_tags = [tag.strip().lower() for tag in tags_param.split(',') if tag.strip()]
     

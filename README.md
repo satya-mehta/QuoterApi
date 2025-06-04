@@ -33,19 +33,19 @@ Returns one or more random quotes.
 #### 🔹 Example Queries
 
 - **One random quote:**  
-  [`/quotes/random`](https://quoterapi.onrender.com/quotes/random)
+  [`/quotes/random (try)`](https://quoterapi.onrender.com/quotes/random)
 
 - **Quote tagged 'war':**  
-  [`/quotes/random?tags=war`](https://quoterapi.onrender.com/quotes/random?tags=war)
+  [`/quotes/random?tags=war (try)`](https://quoterapi.onrender.com/quotes/random?tags=war)
 
 - **Multiple tags:**  
-  [`/quotes/random?tags=freedom,war`](https://quoterapi.onrender.com/quotes/random?tags=freedom,war)
+  [`/quotes/random?tags=freedom,war (try)`](https://quoterapi.onrender.com/quotes/random?tags=freedom,war)
 
 - **Quote with max 80 chars:**  
-  [`/quotes/random?maxlength=80`](https://quoterapi.onrender.com/quotes/random?maxlength=80)
+  [`/quotes/random?maxlength=80 (try)`](https://quoterapi.onrender.com/quotes/random?maxlength=80)
 
 - **Top 5 short inspirational quotes:**  
-  [`/quotes/random?tags=inspirational&maxlength=100&limit=5`](https://quoterapi.onrender.com/quotes/random?tags=inspirational&maxlength=100&limit=5)
+  [`/quotes/random?tags=inspirational&maxlength=100&limit=5 (try)`](https://quoterapi.onrender.com/quotes/random?tags=inspirational&maxlength=100&limit=5)
 
 ---
 
@@ -62,9 +62,9 @@ Search for quotes by author or single tag.
 
 #### 🔹 Example Queries
 
-- [`/api/search?author=orwell`](https://quoterapi.onrender.com/api/search?author=orwell)  
-- [`/api/search?tag=inspirational`](https://quoterapi.onrender.com/api/search?tag=inspirational)  
-- [`/api/search?author=george&tag=war`](https://quoterapi.onrender.com/api/search?author=george&tag=war)
+- [`/api/search?author=orwell (try)`](https://quoterapi.onrender.com/api/search?author=orwell)  
+- [`/api/search?tag=inspirational (try)`](https://quoterapi.onrender.com/api/search?tag=inspirational)  
+- [`/api/search?author=george&tag=war (try)`](https://quoterapi.onrender.com/api/search?author=george&tag=war)
 
 Returns up to 10 matching quotes.
 
@@ -75,7 +75,7 @@ Returns up to 10 matching quotes.
 Returns a quote by its index number.
 
 - Example:  
-  [`/api/quote/100`](https://quoterapi.onrender.com/api/quote/100)
+  [`/api/quote/100 (try)`](https://quoterapi.onrender.com/api/quote/100)
 
 ---
 
@@ -95,7 +95,6 @@ Returns a quote by its index number.
 - Python 3
 - Flask
 - Render (deployment)
-- JSONL data format
 
 ---
 
